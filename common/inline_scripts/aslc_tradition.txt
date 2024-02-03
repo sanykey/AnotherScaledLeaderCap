@@ -1,0 +1,7 @@
+# inline script aslc_tradition
+else_if = {
+	limit = {
+		has_active_tradition = $TR$
+	}
+	change_variable = { which = aslc_traditions_acount value = 1 }
+}

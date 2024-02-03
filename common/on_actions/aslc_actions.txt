@@ -1,0 +1,38 @@
+
+
+# This = Planet
+on_building_complete = {
+	events = {
+		aslc_events.2
+	}
+}
+
+# This = Planet
+on_building_downgraded = {
+	events = {
+		aslc_events.2
+	}
+}
+
+# This = Planet
+on_building_demolished = {
+	events = {
+		aslc_events.2
+	}
+}
+
+# THIS = country
+on_monthly_pulse_country = {
+	events = {
+		aslc_events.3
+	}
+}
+
+# THIS = country
+on_tradition_picked = {
+	events = {
+		aslc_events.4
+	}
+}
+
+# todo: сделать проверку потери планет

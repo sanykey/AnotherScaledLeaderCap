@@ -1,0 +1,151 @@
+namespace = aslc_events
+
+country_event = {
+	id = aslc_events.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_variable = { which = aslc_leadercap_planets_sum value = 0 }
+		every_owned_planet = {
+			if = {
+				limit = {
+					is_variable_set = aslc_planet_leadercap
+				}
+				owner = {
+					change_variable = { which = aslc_leadercap_planets_sum value = prev.aslc_planet_leadercap }
+				}
+			}
+		}
+
+		set_variable = { which = aslc_leader_cap_current value = value:ascl_country_leader_cap_sum }
+
+		# debug
+		log = ">> PLANETS: [this.aslc_leadercap_planets_sum]"
+		log = ">> TRADITIONS: [this.aslc_traditions_sum]"
+		log = ">> PL TIERS: [this.aslc_planetary_tiers_sum]"
+		log = ">> SUM: [this.aslc_leader_cap_current]"
+		if = {
+			limit = { is_variable_set = aslc_leader_cap }
+			log = ">> PREV SUM: [this.aslc_leader_cap]"
+		}
+
+		if = {
+			limit = { NOT = { is_variable_set = aslc_leader_cap } }
+			set_variable = { which = aslc_leader_cap value = 0 }
+		}
+
+		if = {
+			limit = {
+				NOT = { check_variable = { which = aslc_leader_cap value = aslc_leader_cap_current } }
+			}
+
+			if = {
+				limit = { has_modifier = aslc_country_leader_cap_mod }
+				remove_modifier = aslc_country_leader_cap_mod
+			}
+			log = ">> UPDATE MOD"
+			add_modifier = {
+				modifier = aslc_country_leader_cap_mod
+				multiplier = this.aslc_leader_cap_current
+			}
+
+			set_variable = { which = aslc_leader_cap value = aslc_leader_cap_current }
+		} 
+		else_if = {
+			limit = {
+				check_variable = { which = aslc_leader_cap_current value = 0 }
+				has_modifier = aslc_country_leader_cap_mod
+			}
+			remove_modifier = aslc_country_leader_cap_mod
+		}
+		clear_variable = aslc_leader_cap_current
+	}
+}
+
+
+# calculate building bonuses for leader cap
+# on_building_complete, on_building_downgraded, on_building_demolished
+planet_event = {
+	id = aslc_events.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = owner
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					last_building_changed = "building_major_capital"
+					last_building_changed = "building_machine_capital"
+					last_building_changed = "building_hive_capital"
+					last_building_changed = "building_hab_major_capital"
+					last_building_changed = "building_system_capital"
+					last_building_changed = "building_machine_major_capital"
+					last_building_changed = "building_machine_system_capital"
+					last_building_changed = "building_hive_major_capital"
+					last_building_changed = "building_imperial_capital"
+					last_building_changed = "building_imperial_machine_capital"
+					last_building_changed = "building_imperial_hive_capital"
+				}
+			}
+
+			set_variable = { which = aslc_planet_leadercap value = value:aslc_leader_cap_per_building }
+			owner = {
+				country_event = { id = aslc_events.1 }
+			}
+		}
+	}
+}
+
+# calculate and cache planetary tiers
+# on_monthly_pulse_country
+country_event = {
+	id = aslc_events.3
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					NOT = { is_variable_set = aslc_planetary_tiers }
+					NOT = {
+						check_variable = { which = aslc_planetary_tiers_sum value = value:aslc_planetary_tiers }
+					}
+				}
+			}
+			set_variable = { which = aslc_planetary_tiers_sum value = value:aslc_planetary_tiers }
+			country_event = { id = aslc_events.1 }
+		}
+	}
+}
+
+# calculate and cache finished traditions
+# on_tradition_picked
+country_event = {
+	id = aslc_events.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_variable = { which = aslc_traditions_sum_current value = value:aslc_leader_cap_per_tr }
+
+		if = {
+			limit = {
+				OR = {
+					NOT = { is_variable_set = aslc_traditions_sum }
+					NOT = {
+						check_variable = { which = aslc_traditions_sum value = aslc_traditions_sum_current }
+					}
+				}
+			}
+			set_variable = { which = aslc_traditions_sum value = aslc_traditions_sum_current }
+			country_event = { id = aslc_events.1 }
+		}
+		clear_variable = aslc_traditions_sum_current
+	}
+}

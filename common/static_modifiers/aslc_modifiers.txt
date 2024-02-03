@@ -1,0 +1,4 @@
+aslc_country_leader_cap_mod = {
+	icon = "gfx/interface/icons/modifiers/aslc_country_leader_cap_mod.dds"
+	country_leader_cap_add = 1
+}
