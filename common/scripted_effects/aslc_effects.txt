@@ -1,0 +1,31 @@
+# this = country
+aslc_calc_planetary_buildings_sum = {
+	set_variable = { which = aslc_planetary_buildings_sum value = 0 }
+	every_owned_planet = {
+		if = {
+			limit = {
+				is_variable_set = aslc_planetary_buildings
+			}
+			owner = {
+				change_variable = { which = aslc_planetary_buildings_sum value = prev.aslc_planetary_buildings }
+			}
+		}
+	}
+}
+
+aslc_set_cache_variables = {
+	if = {
+		limit = {
+			NOR = {
+				is_variable_set = aslc_leader_cap
+				is_variable_set = aslc_pops
+				is_variable_set = aslc_planetary_tiers
+				is_variable_set = aslc_planetary_buildings_sum
+			}
+		}
+		set_variable = { which = aslc_leader_cap value = 0 }
+		set_variable = { which = aslc_pops value = 0 }
+		set_variable = { which = aslc_planetary_tiers value = 0 }
+		set_variable = { which = aslc_planetary_buildings_sum value = 0 }
+	}
+}

@@ -1,10 +1,8 @@
-# @aslc_leader_cap_base_by_building = 1
-# @aslc_leader_cap_factor_by_buiding_t2 = 0.15 # 7 planets for + 1 leader cap
-# @aslc_leader_cap_factor_by_buiding_t3 = 0.21 # 5 planets for + 1 leader cap
-# @aslc_leader_cap_factor_by_buiding_t4 = 0.34 # 3 planets for + 1 leader cap
 @aslc_leader_cap_f_per_planetary_tiers = 0.25
 @aslc_leader_cap_per_tr = 1
 
-@aslc_leader_cap_per_buiding_t2 = 0.15 # 7 planets for + 1 leader cap
-@aslc_leader_cap_per_buiding_t3 = 0.21 # 5 planets for + 1 leader cap
-@aslc_leader_cap_per_buiding_t4 = 0.34 # 3 planets for + 1 leader cap
+@aslc_leader_cap_per_buiding_t2 = 0.11 # 10 planets for + 1 leader cap / 19 planets for +2 leader cap
+@aslc_leader_cap_per_buiding_t3 = 0.19 # 6 planets for + 1 leader cap / 11 planets for +2 leader cap
+@aslc_leader_cap_per_buiding_t4 = 0.4 # 3 planets for + 1 leader cap / 5 planets for +2 leader cap
+
+@ascl_pops_for_leader_cap = 150

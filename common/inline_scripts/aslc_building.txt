@@ -1,7 +1,0 @@
-# inline script aslc_building
-else_if = {
-	limit = {
-		has_building = $B$
-	}
-	change_variable = { which = aslc_buildings_factor_current value = $F$ }
-}

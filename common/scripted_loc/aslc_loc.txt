@@ -1,0 +1,24 @@
+defined_text = {
+	name = GetAslcLeadersCap
+	value = aslc_leader_cap
+}
+
+defined_text = {
+	name = GetAslcAscensionPerks
+	value = trigger:num_ascension_perks
+}
+
+defined_text = {
+	name = GetAslcCapitalBuildings
+	value = aslc_planetary_buildings_sum
+}
+
+defined_text = {
+	name = GetAslcPlanetaryTiers
+	value = aslc_planetary_tiers
+}
+
+defined_text = {
+	name = GetAslcPops
+	value = aslc_pops
+}

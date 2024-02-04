@@ -1,4 +1,5 @@
 aslc_country_leader_cap_mod = {
+	custom_tooltip = aslc_country_leader_cap_mod_custom
 	icon = "gfx/interface/icons/modifiers/aslc_country_leader_cap_mod.dds"
 	country_leader_cap_add = 1
 }

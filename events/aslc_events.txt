@@ -6,34 +6,19 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		set_variable = { which = aslc_leadercap_planets_sum value = 0 }
-		every_owned_planet = {
-			if = {
-				limit = {
-					is_variable_set = aslc_planet_leadercap
-				}
-				owner = {
-					change_variable = { which = aslc_leadercap_planets_sum value = prev.aslc_planet_leadercap }
-				}
-			}
-		}
-
+		aslc_calc_planetary_buildings_sum = yes # updates aslc_planetary_buildings_sum var
 		set_variable = { which = aslc_leader_cap_current value = value:ascl_country_leader_cap_sum }
 
-		# debug
-		log = ">> PLANETS: [this.aslc_leadercap_planets_sum]"
-		log = ">> TRADITIONS: [this.aslc_traditions_sum]"
-		log = ">> PL TIERS: [this.aslc_planetary_tiers_sum]"
-		log = ">> SUM: [this.aslc_leader_cap_current]"
-		if = {
-			limit = { is_variable_set = aslc_leader_cap }
-			log = ">> PREV SUM: [this.aslc_leader_cap]"
-		}
-
-		if = {
-			limit = { NOT = { is_variable_set = aslc_leader_cap } }
-			set_variable = { which = aslc_leader_cap value = 0 }
-		}
+		# # debug
+		# log = ">> -------------- [this.GetName]"
+		# log = ">> PLANETS: [this.aslc_planetary_buildings_sum]"
+		# log = ">> TRADITIONS: [this.aslc_traditions_sum]"
+		# # log = ">> PL TIERS. VALUE: [value:aslc_planetary_tiers] TRIGGER [trigger:num_planetary_ascension_tiers]"
+		# log = ">> SUM: [this.aslc_leader_cap_current]"
+		# if = {
+		# 	limit = { is_variable_set = aslc_leader_cap }
+		# 	log = ">> PREV SUM: [this.aslc_leader_cap]"
+		# }
 
 		if = {
 			limit = {
@@ -44,7 +29,7 @@ country_event = {
 				limit = { has_modifier = aslc_country_leader_cap_mod }
 				remove_modifier = aslc_country_leader_cap_mod
 			}
-			log = ">> UPDATE MOD"
+			# log = ">> UPDATE MOD"
 			add_modifier = {
 				modifier = aslc_country_leader_cap_mod
 				multiplier = this.aslc_leader_cap_current
@@ -54,7 +39,7 @@ country_event = {
 		} 
 		else_if = {
 			limit = {
-				check_variable = { which = aslc_leader_cap_current value = 0 }
+				check_variable = { which = aslc_leader_cap value < 1 }
 				has_modifier = aslc_country_leader_cap_mod
 			}
 			remove_modifier = aslc_country_leader_cap_mod
@@ -65,7 +50,7 @@ country_event = {
 
 
 # calculate building bonuses for leader cap
-# on_building_complete, on_building_downgraded, on_building_demolished
+# on_building_complete, on_building_downgraded, on_building_demolished, on_building_upgraded
 planet_event = {
 	id = aslc_events.2
 	hide_window = yes
@@ -76,25 +61,32 @@ planet_event = {
 	}
 
 	immediate = {
+		# log = ">> BUILDING UPDATED"
 		if = {
 			limit = {
 				OR = {
-					last_building_changed = "building_major_capital"
+					last_building_changed = "building_capital"
 					last_building_changed = "building_machine_capital"
 					last_building_changed = "building_hive_capital"
 					last_building_changed = "building_hab_major_capital"
-					last_building_changed = "building_system_capital"
+					last_building_changed = "building_major_capital"
 					last_building_changed = "building_machine_major_capital"
-					last_building_changed = "building_machine_system_capital"
 					last_building_changed = "building_hive_major_capital"
+					last_building_changed = "building_hab_system_capital"
+					last_building_changed = "building_resort_major_capital"
+					last_building_changed = "building_slave_major_capital"
+					last_building_changed = "building_system_capital"
+					last_building_changed = "building_machine_system_capital"
+					last_building_changed = "building_imperial_hive_capital"
 					last_building_changed = "building_imperial_capital"
 					last_building_changed = "building_imperial_machine_capital"
-					last_building_changed = "building_imperial_hive_capital"
 				}
 			}
-
-			set_variable = { which = aslc_planet_leadercap value = value:aslc_leader_cap_per_building }
+			
+			set_variable = { which = aslc_planetary_buildings value = value:aslc_leader_cap_per_building }
 			owner = {
+				aslc_set_cache_variables = yes
+				# log = ">> TRIGGER PLANET BUILDING [this.aslc_planet_leadercap] [this.GetName]"
 				country_event = { id = aslc_events.1 }
 			}
 		}
@@ -109,43 +101,72 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		aslc_set_cache_variables = yes
 		if = {
 			limit = {
-				OR = {
-					NOT = { is_variable_set = aslc_planetary_tiers }
-					NOT = {
-						check_variable = { which = aslc_planetary_tiers_sum value = value:aslc_planetary_tiers }
-					}
+				num_planetary_ascension_tiers > 0
+				NOT = {
+					check_variable = { which = aslc_planetary_tiers value = value:aslc_planetary_tiers_sv }
 				}
 			}
-			set_variable = { which = aslc_planetary_tiers_sum value = value:aslc_planetary_tiers }
+			set_variable = { which = aslc_planetary_tiers value = value:aslc_planetary_tiers_sv }
+			# log = ">> TRIGGER PLANETARY TIER UP [this.aslc_planetary_tiers] [this.GetName]"
 			country_event = { id = aslc_events.1 }
 		}
 	}
 }
 
-# calculate and cache finished traditions
-# on_tradition_picked
+# recalculate country mod when planet transfered
+# on_planet_transfer
 country_event = {
 	id = aslc_events.4
 	hide_window = yes
 	is_triggered_only = yes
 
 	immediate = {
-		set_variable = { which = aslc_traditions_sum_current value = value:aslc_leader_cap_per_tr }
+		FromFrom = {
+			if = {
+				limit = {
+					is_scope_type = country
+				}
+				aslc_set_cache_variables = yes
+				# log = ">> TRIGGER PLANET TRANSFER (prev owner) [this.GetName]"
+				country_event = { id = aslc_events.1 }
+			}
+		}
+
+		From = {
+			if = {
+				limit = {
+					is_scope_type = country
+				}
+				aslc_set_cache_variables = yes
+				# log = ">> TRIGGER PLANET TRANSFER (new owner) [this.GetName]"
+				country_event = { id = aslc_events.1 }
+			}
+		}
+	}
+}
+
+# calculate and cache pops num
+# on_monthly_pulse_country
+country_event = {
+	id = aslc_events.5
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		aslc_set_cache_variables = yes
+		set_variable = { which = aslc_pops_current value = value:aslc_leader_cap_per_pops }
 
 		if = {
 			limit = {
-				OR = {
-					NOT = { is_variable_set = aslc_traditions_sum }
-					NOT = {
-						check_variable = { which = aslc_traditions_sum value = aslc_traditions_sum_current }
-					}
+				NOT = {
+					check_variable = { which = aslc_pops value = aslc_pops_current }
 				}
 			}
-			set_variable = { which = aslc_traditions_sum value = aslc_traditions_sum_current }
+			set_variable = { which = aslc_pops value = aslc_pops_current }
 			country_event = { id = aslc_events.1 }
 		}
-		clear_variable = aslc_traditions_sum_current
 	}
 }

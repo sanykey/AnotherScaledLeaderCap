@@ -1,3 +1,4 @@
 ﻿l_english:
- aslc_country_leader_cap_mod:0 "Increased leader cap"
- aslc_country_leader_cap_mod_desc:0 "The leader cap increases if you complete tradition categories, level up planets, and improve colony capitals."
+ aslc_country_leader_cap_mod:0 "Increased Leader Capacity"
+ aslc_country_leader_cap_mod_desc:0 "The Leader Capacity increases if you complete tradition categories, level up planets, and improve colony capitals."
+ aslc_country_leader_cap_mod_custom:0 "Leader Capacity: §G+[Root.Owner.GetAslcLeadersCap]§!\n    Ascension Perks: §Y[Root.Owner.GetAslcAscensionPerks]§!\n    Capital Buildings: §Y[Root.Owner.GetAslcCapitalBuildings]§!\n    Planet Tiers: §Y[Root.Owner.GetAslcPlanetaryTiers]§!\n    Population: §Y[Root.Owner.GetAslcPops]§!\n"

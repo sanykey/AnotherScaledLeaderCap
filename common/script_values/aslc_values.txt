@@ -1,54 +1,49 @@
 # this = country
-aslc_planetary_tiers = {
+aslc_planetary_tiers_sv = {
   add = trigger:num_planetary_ascension_tiers
   multiply = @aslc_leader_cap_f_per_planetary_tiers
 }
 
 # this = planet
 aslc_leader_cap_per_building = {
-  modifier = { has_building = "building_major_capital" add = @aslc_leader_cap_per_buiding_t2 }
-  modifier = { has_building = "building_machine_capital" add = @aslc_leader_cap_per_buiding_t2 }
-  modifier = { has_building = "building_hive_capital" add = @aslc_leader_cap_per_buiding_t2 }
-  modifier = { has_building = "building_hab_major_capital" add = @aslc_leader_cap_per_buiding_t2 }
+  modifier = { has_building = "building_capital" add = @aslc_leader_cap_per_buiding_t2 } # pops >= 10 -> building_major_capital
+  modifier = { has_building = "building_machine_capital" add = @aslc_leader_cap_per_buiding_t2 } # pops >= 10 -> building_machine_major_capital
+  modifier = { has_building = "building_hive_capital" add = @aslc_leader_cap_per_buiding_t2 } # -> building_hive_major_capital
+  modifier = { has_building = "building_hab_major_capital" add = @aslc_leader_cap_per_buiding_t2 } # pops >= 10 -> building_hab_system_capital
 
-  modifier = { has_building = "building_system_capital" add = @aslc_leader_cap_per_buiding_t3 }
-  modifier = { has_building = "building_machine_major_capital" add = @aslc_leader_cap_per_buiding_t3 }
+  modifier = { has_building = "building_major_capital" add = @aslc_leader_cap_per_buiding_t3 } # pops >= 25 -> building_system_capital
+  modifier = { has_building = "building_machine_major_capital" add = @aslc_leader_cap_per_buiding_t3 } # pops >= 25 -> building_machine_system_capital
+  modifier = { has_building = "building_hive_major_capital" add = @aslc_leader_cap_per_buiding_t3 } # pops >= 25 -> building_imperial_hive_capital
+  modifier = { has_building = "building_hab_system_capital" add = @aslc_leader_cap_per_buiding_t3 } # pops >= 25 -> building_imperial_capital
 
-  modifier = { has_building = "building_machine_system_capital" add = @aslc_leader_cap_per_buiding_t4 }
-  modifier = { has_building = "building_hive_major_capital" add = @aslc_leader_cap_per_buiding_t4 }
-  modifier = { has_building = "building_imperial_capital" add = @aslc_leader_cap_per_buiding_t4 }
-  modifier = { has_building = "building_imperial_machine_capital" add = @aslc_leader_cap_per_buiding_t4 }
-  modifier = { has_building = "building_imperial_hive_capital" add = @aslc_leader_cap_per_buiding_t4 }
+  modifier = { has_building = "building_resort_major_capital" add = @aslc_leader_cap_per_buiding_t3 } # pops >= 20
+  modifier = { has_building = "building_slave_major_capital" add = @aslc_leader_cap_per_buiding_t3 } # pops >= 20
+
+  modifier = { has_building = "building_system_capital" add = @aslc_leader_cap_per_buiding_t4 } # pops >= 50 -> building_imperial_capital
+  modifier = { has_building = "building_machine_system_capital" add = @aslc_leader_cap_per_buiding_t4 } # pops >= 50 -> building_imperial_machine_capital
+  modifier = { has_building = "building_imperial_hive_capital" add = @aslc_leader_cap_per_buiding_t4 } # pops >= 50
+  modifier = { has_building = "building_imperial_capital" add = @aslc_leader_cap_per_buiding_t4 } # pops >= 50
+  modifier = { has_building = "building_imperial_machine_capital" add = @aslc_leader_cap_per_buiding_t4 } # pops >= 50
+
+  # modifier = { has_building = "building_ancient_cryo_chamber" add = @aslc_leader_cap_per_buiding_t4 }
+  # modifier = { has_building = "building_hab_fe_capital" add = @aslc_leader_cap_per_buiding_t4 }
+  # modifier = { has_building = "building_ancient_control_center" add = @aslc_leader_cap_per_buiding_t4 }
+  # modifier = { has_building = "building_ancient_palace" add = @aslc_leader_cap_per_buiding_t4 }
+  
+  # building_resort_capital  # energy = 2 -> building_resort_major_capital
+  # building_slave_capital # energy = 2 -> building_slave_major_capital minerals = 500, energy = @b1_upkeep
 }
 
-# this = country
-aslc_leader_cap_per_tr = {
-  modifier = { has_active_tradition = "tr_adaptability_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_aptitude_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_diplomacy_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_discovery_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_domination_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_enmity_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_expansion_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_harmony_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_mercantile_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_politics_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_prosperity_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_statecraft_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_subterfuge_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_supremacy_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_synchronicity_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_unyielding_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_versatility_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_cybernetics_assimilator_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_cybernetics_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_genetics_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_psionics_finish" add = @aslc_leader_cap_per_tr }
-  modifier = { has_active_tradition = "tr_synthetics_finish" add = @aslc_leader_cap_per_tr }
+aslc_leader_cap_per_pops = {
+  add = trigger:num_pops
+  divide = @ascl_pops_for_leader_cap
+  floor = yes
 }
 
 ascl_country_leader_cap_sum = {
-  add = this.aslc_planetary_tiers_sum
-  add = this.aslc_traditions_sum
-  add = this.aslc_leadercap_planets_sum
+  modifier = { is_variable_set = aslc_planetary_buildings_sum add = aslc_planetary_buildings_sum }
+  modifier = { is_variable_set = aslc_pops add = aslc_pops }
+  modifier = { is_variable_set = aslc_planetary_tiers add = aslc_planetary_tiers }
+  add = trigger:num_ascension_perks
+  floor = yes
 }
