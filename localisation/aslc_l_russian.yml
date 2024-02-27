@@ -1,0 +1,4 @@
+﻿l_russian:
+ aslc_country_leader_cap_mod:0 "Увеличенный лимит лидеров"
+ aslc_country_leader_cap_mod_desc:0 "Лимит лидеров увеличивается если завершать категории традиций, повышать уровень планет и улучшать столицы колоний."
+ aslc_country_leader_cap_mod_custom:0 "Бонус к лимиту лидеров: §G+[Root.Owner.GetAslcLeadersCap]§!\n    Бонусы за стремление: §Y[Root.Owner.GetAslcAscensionPerks]§!\n    Столичные сооружения: §Y[Root.Owner.GetAslcCapitalBuildings]§!\n    Уровни планет: §Y[Root.Owner.GetAslcPlanetaryTiers]§!\n    Население: §Y[Root.Owner.GetAslcPops]§!\n"

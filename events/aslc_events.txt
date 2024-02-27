@@ -118,33 +118,45 @@ country_event = {
 
 # recalculate country mod when planet transfered
 # on_planet_transfer
-country_event = {
+# FromFrom = Former Owner (if any)
+# From = Country scope (new owner)
+# This = Planet scope
+planet_event = {
 	id = aslc_events.4
 	hide_window = yes
 	is_triggered_only = yes
 
 	immediate = {
-		FromFrom = {
-			if = {
-				limit = {
+		if = {
+			limit = {
+				exists = FromFrom
+				FromFrom = {
 					is_scope_type = country
 				}
+			}
+			
+			FromFrom = {
 				aslc_set_cache_variables = yes
 				# log = ">> TRIGGER PLANET TRANSFER (prev owner) [this.GetName]"
 				country_event = { id = aslc_events.1 }
 			}
 		}
 
-		From = {
-			if = {
-				limit = {
+		if = {
+			limit = {
+				exists = From
+				From = {
 					is_scope_type = country
 				}
+			}
+			
+			From = {
 				aslc_set_cache_variables = yes
 				# log = ">> TRIGGER PLANET TRANSFER (new owner) [this.GetName]"
 				country_event = { id = aslc_events.1 }
 			}
 		}
+
 	}
 }
 
