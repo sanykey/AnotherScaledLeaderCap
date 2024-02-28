@@ -40,10 +40,15 @@ aslc_leader_cap_per_pops = {
   floor = yes
 }
 
+ascl_leaders_by_ascension_perks = {
+  add = trigger:num_ascension_perks
+  divide = 2
+}
+
 ascl_country_leader_cap_sum = {
   modifier = { is_variable_set = aslc_planetary_buildings_sum add = aslc_planetary_buildings_sum }
   modifier = { is_variable_set = aslc_pops add = aslc_pops }
   modifier = { is_variable_set = aslc_planetary_tiers add = aslc_planetary_tiers }
-  add = trigger:num_ascension_perks
+  add = value:ascl_leaders_by_ascension_perks
   floor = yes
 }

@@ -5,7 +5,7 @@ defined_text = {
 
 defined_text = {
 	name = GetAslcAscensionPerks
-	value = trigger:num_ascension_perks
+	value = value:ascl_leaders_by_ascension_perks
 }
 
 defined_text = {
